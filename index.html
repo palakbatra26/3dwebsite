@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Paris Voyage — Discover the Magic of Paris</title>
+  <link rel="icon" href="data:,">
+
+  <!-- Google Fonts: DM Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,500;1,600&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      background-color: #03080e;
+      color: #ffffff;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* =========================================================
+       MINIMALIST LUXURY PRELOADER
+       ========================================================= */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #03080e;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+      pointer-events: all;
+    }
+
+    #preloader.loaded {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .preloader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 320px;
+      max-width: 85vw;
+    }
+
+    .preloader-logo {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 24px;
+    }
+
+    .preloader-bar-track {
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preloader-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #0d6efd, #60a5fa);
+      box-shadow: 0 0 16px rgba(96, 165, 250, 0.8);
+      transition: width 0.08s ease-out;
+    }
+
+    .preloader-status {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 14px;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .preloader-percent {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Sleek Webkit Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.5);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    /* =========================================================
+       FIXED FULL-SCREEN 3D CINEMATIC CANVAS (IMMUNE TO OVERFLOW BUGS)
+       ========================================================= */
+    #canvas-fixed-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    #cinematic-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    .canvas-vignette {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(ellipse at center, rgba(3, 8, 14, 0.05) 0%, rgba(3, 8, 14, 0.55) 100%);
+      pointer-events: none;
+    }
+
+    /* =========================================================
+       GLOBAL PEACHWEB-INSPIRED GLASS CARD STYLES
+       ========================================================= */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.52);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: 20px;
+      padding: 28px 30px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.35s ease, background 0.3s ease;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.32);
+      background: rgba(20, 32, 56, 0.7);
+      box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.75), 0 0 25px rgba(13, 110, 253, 0.22);
+      transform: translateY(-5px);
+    }
+
+    .card-icon-badge {
+      width: 38px;
+      height: 38px;
+      background: #ffffff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    .glass-card h3, .glass-card h4 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+
+    .glass-card p {
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    /* Common Buttons */
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background-color: #ffffff;
+      color: #000000;
+      padding: 8px 12px 8px 24px;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 22px rgba(255, 255, 255, 0.22);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 28px rgba(255, 255, 255, 0.32);
+    }
+
+    .cta-icon-badge {
+      width: 30px;
+      height: 30px;
+      background-color: #0d6efd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      transition: transform 0.2s ease;
+    }
+
+    .cta-btn:hover .cta-icon-badge {
+      transform: translateX(2px) translateY(-2px);
+    }
+
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      padding: 12px 28px;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      backdrop-filter: blur(20px);
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+      cursor: pointer;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.35);
+      transform: translateY(-2px);
+    }
+
+    /* Shared Section Header */
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 60px auto;
+    }
+
+    .section-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      margin-bottom: 18px;
+      color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+    }
+
+    .section-title {
+      font-size: 46px;
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -0.8px;
+      margin-bottom: 16px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: rgba(255, 255, 255, 0.85);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    /* =========================================================
+       FIXED TOP NAVIGATION (STICKY GLASS BAR)
+       ========================================================= */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 70px;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+      pointer-events: none;
+      transition: background-color 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease;
+    }
+
+    header.scrolled {
+      background: rgba(3, 8, 14, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    header * {
+      pointer-events: all;
+    }
+
+    /* Anchor scroll alignment */
+    section {
+      scroll-margin-top: 80px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-decoration: none;
+      white-space: nowrap;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+    }
+
+    .nav-pill {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 9999px;
+      padding: 4px 6px;
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      gap: 2px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-pill a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 9999px;
+      white-space: nowrap;
+      transition: all 0.25s ease;
+    }
+
+    .nav-pill a.active {
+      background-color: #ffffff;
+      color: #000000;
+      font-weight: 600;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav-pill a:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .menu-btn {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      padding: 8px 20px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      backdrop-filter: blur(28px);
+      transition: background 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .menu-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.32);
+    }
+
+    /* =========================================================
+       SECTION 0: HERO BANNER (Top 100vh layer)
+       ========================================================= */
+    #home {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 100px 52px 40px;
+      z-index: 5;
+      transition: opacity 0.3s ease;
+    }
+
+    .hero-center {
+      position: relative;
+      text-align: center;
+      max-width: 860px;
+      margin: 30px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: 64px;
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: -1.2px;
+      margin-bottom: 20px;
+      text-shadow: 0 6px 32px rgba(0, 0, 0, 0.85);
+    }
+
+    .hero-subtitle {
+      font-size: 16.5px;
+      font-weight: 400;
+      line-height: 1.6;
+      max-width: 620px;
+      margin-bottom: 28px;
+      color: rgba(255, 255, 255, 0.92);
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85);
+    }
+
+    .banner-bottom-section {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 28px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .banner-bottom-section .glass-card {
+      width: 330px;
+      padding: 22px 26px;
+      flex-shrink: 0;
+    }
+
+    /* =========================================================
+       SECTION 1: THE FLIGHT JOURNEY (550vh SCROLL RUNWAY)
+       ========================================================= */
+    #flight-experience {
+      position: relative;
+      height: 550vh; /* Dedicated long scroll travel for all 300 frames */
+      width: 100%;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Live HUD Counter (Fixed corner overlay during flight) */
+    .flight-hud {
+      position: fixed;
+      bottom: 36px;
+      right: 44px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      z-index: 20;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      opacity: 0;
+    }
+
+    .flight-hud.active {
+      opacity: 1;
+    }
+
+    .hud-phase {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.75);
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .hud-phase span {
+      color: #60a5fa;
+      font-weight: 800;
+    }
+
+    .hud-bar {
+      width: 160px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .hud-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #0d6efd, #60a5fa);
+      box-shadow: 0 0 10px rgba(96, 165, 250, 0.8);
+      transition: width 0.06s linear;
+    }
+
+    /* Floating Narrative Phase Captions */
+    .flight-overlay-narratives {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 15;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .stage-caption {
+      position: absolute;
+      text-align: center;
+      max-width: 680px;
+      width: 90%;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .stage-caption.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stage-pill {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      background: rgba(13, 110, 253, 0.25);
+      border: 1px solid rgba(13, 110, 253, 0.5);
+      color: #9ec5fe;
+      margin-bottom: 16px;
+      backdrop-filter: blur(12px);
+    }
+
+    .stage-caption h2 {
+      font-size: 46px;
+      font-weight: 500;
+      letter-spacing: -1px;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .stage-caption p {
+      font-size: 16.5px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.92);
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Scroll Prompt Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      pointer-events: none;
+      animation: pulseUpDown 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseUpDown {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.6; }
+      50% { transform: translateX(-50%) translateY(6px); opacity: 1; }
+    }
+
+    /* =========================================================
+       SUBSEQUENT SECTIONS (SLIDE UP OVER THE 3D BACKGROUND)
+       ========================================================= */
+    .content-stream {
+      position: relative;
+      z-index: 10;
+      background: #03080e;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 -30px 60px rgba(3, 8, 14, 0.95);
+    }
+
+    /* SECTION 2: DESTINATION HIGHLIGHTS */
+    .destinations-section {
+      padding: 130px 48px;
+      position: relative;
+    }
+
+    .destinations-grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .dest-card {
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+    }
+
+    .dest-tag {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #60a5fa;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    /* SECTION 3: PROUDLY TRUSTED */
+    .trusted-section {
+      position: relative;
+      background: #040912;
+      width: 100%;
+      padding: 120px 48px 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .trusted-content {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 50px;
+    }
+
+    .trusted-title {
+      font-size: 44px;
+      line-height: 1.15;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+    }
+
+    .serif-italic {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: #93c5fd;
+    }
+
+    .sans-italic {
+      font-family: 'DM Sans', sans-serif;
+      font-style: italic;
+      color: #ffffff;
+    }
+
+    .trademark {
+      font-size: 18px;
+      vertical-align: super;
+      font-style: normal;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .trusted-subtitle {
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: right;
+      max-width: 420px;
+    }
+
+    .trusted-divider {
+      width: 100%;
+      max-width: 1200px;
+      height: 1px;
+      background-color: rgba(255, 255, 255, 0.12);
+      margin-bottom: 40px;
+    }
+
+    .brands-row {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      opacity: 0.85;
+    }
+
+    .brand-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #ffffff;
+      transition: opacity 0.3s ease;
+    }
+
+    .brand-item:hover {
+      opacity: 1;
+    }
+
+    .brand-text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .brand-sub {
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* SECTION 4: OUR TOURS */
+    .tours-section {
+      padding: 130px 48px;
+      max-width: 1320px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .tours-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px 1fr;
+      grid-template-rows: auto auto;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .tours-center-visual {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      height: 100%;
+      min-height: 480px;
+      background: radial-gradient(circle at center, rgba(13, 110, 253, 0.15) 0%, rgba(3, 8, 14, 0.9) 70%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 50px rgba(13, 110, 253, 0.15);
+    }
+
+    .paris-badge {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 255, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      position: relative;
+      animation: rotateSlow 40s linear infinite;
+    }
+
+    @keyframes rotateSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .paris-badge-inner {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      background: rgba(13, 110, 253, 0.25);
+      border: 1px solid rgba(13, 110, 253, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 30px rgba(13, 110, 253, 0.4);
+    }
+
+    .tour-card {
+      padding: 32px 28px;
+    }
+
+    .tour-price-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #60a5fa;
+      background: rgba(13, 110, 253, 0.15);
+      border: 1px solid rgba(13, 110, 253, 0.35);
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+
+    /* SECTION 5: WHY CHOOSE US */
+    .why-section {
+      background: #040912;
+      padding: 130px 48px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .why-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .why-card {
+      padding: 34px 28px;
+    }
+
+    /* SECTION 6: CONTACT & BOOKING */
+    .contact-section {
+      padding: 130px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 28px;
+      padding: 50px;
+      backdrop-filter: blur(28px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #ffffff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .form-control:focus {
+      border-color: #0d6efd;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 16px rgba(13, 110, 253, 0.35);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .form-submit-btn {
+      background: linear-gradient(135deg, #0d6efd, #2563eb);
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(13, 110, 253, 0.55);
+    }
+
+    .form-status {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #4ade80;
+      display: none;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #02050a;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .hero-title { font-size: 48px; }
+      .destinations-grid { grid-template-columns: repeat(2, 1fr); }
+      .tours-grid { grid-template-columns: 1fr; }
+      .tours-center-visual { display: none; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-container { grid-template-columns: 1fr; padding: 32px; }
+      .brands-row { flex-wrap: wrap; justify-content: center; gap: 30px; }
+      .trusted-content { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .trusted-subtitle { text-align: left; }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0 20px; }
+      .nav-pill { display: none; }
+      .nav-pill.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 70px;
+        left: 20px;
+        right: 20px;
+        background: rgba(15, 23, 42, 0.95);
+        border-radius: 16px;
+        padding: 16px;
+        z-index: 1001;
+      }
+      .banner-bottom-section { flex-direction: column; align-items: stretch; }
+      .banner-bottom-section .glass-card { width: 100%; }
+      .destinations-grid, .why-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 34px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       MINIMALIST LUXURY PRELOADER
+       ========================================================= -->
+  <div id="preloader">
+    <div class="preloader-content">
+      <div class="preloader-logo">Paris Voyage</div>
+      <div class="preloader-bar-track">
+        <div class="preloader-bar-fill" id="preloader-fill"></div>
+      </div>
+      <div class="preloader-status">
+        <span>Initializing Flight Experience</span>
+        <span class="preloader-percent" id="preloader-percent">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FIXED FULL-SCREEN 3D CINEMATIC CANVAS
+       (Immune to parent overflow bugs, stays at 100vw × 100vh at all times)
+       ========================================================= -->
+  <div id="canvas-fixed-container">
+    <canvas id="cinematic-canvas"></canvas>
+    <div class="canvas-vignette"></div>
+  </div>
+
+  <!-- FIXED STICKY TOP NAVIGATION -->
+  <header>
+    <a href="#home" class="logo">Paris Voyage</a>
+
+    <nav class="nav-pill" id="nav-pill">
+      <a href="#home" class="active">Home</a>
+      <a href="#flight-experience">The Flight</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#about">About us</a>
+      <a href="#tours">Our tours</a>
+      <a href="#why">Why choose us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-right">
+      <button class="menu-btn" id="menu-btn">Menu</button>
+    </div>
+  </header>
+
+  <!-- LIVE HUD OVERLAY (Sticky Bottom-Right Counter) -->
+  <div class="flight-hud" id="flight-hud">
+    <div class="hud-phase"><span id="hud-frame">FRAME 001</span> / 300</div>
+    <div class="hud-bar"><div class="hud-fill" id="hud-fill"></div></div>
+  </div>
+
+  <!-- FLOATING NARRATIVE PHASE CAPTIONS -->
+  <div class="flight-overlay-narratives">
+    <div class="stage-caption" id="cap-1">
+      <span class="stage-pill">FLIGHT PHASE 01</span>
+      <h2>Take Your Seat Above the Earth</h2>
+      <p>Looking out from your private cabin suite as Europe slips away into evening twilight.</p>
+    </div>
+
+    <div class="stage-caption" id="cap-2">
+      <span class="stage-pill">FLIGHT PHASE 02</span>
+      <h2>Cruising Through the Cloud Ocean</h2>
+      <p>Gliding at 34,000 feet through endless rolling cloud banks bathed in moonlight.</p>
+    </div>
+
+    <div class="stage-caption" id="cap-3">
+      <span class="stage-pill">FLIGHT PHASE 03</span>
+      <h2>Descent Over Île-de-France</h2>
+      <p>Drifting through twilight mist as the historic Paris basin opens beneath the aircraft.</p>
+    </div>
+
+    <div class="stage-caption" id="cap-4">
+      <span class="stage-pill">FLIGHT PHASE 04</span>
+      <h2>The City of Light Emerges</h2>
+      <p>The glowing spire of the Eiffel Tower crowns the skyline. Welcome to Paris Voyage.</p>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       SECTION 0: HERO BANNER
+       ========================================================= -->
+  <section id="home">
+    <div></div> <!-- Spacer for header -->
+
+    <div class="hero-center" id="hero-center">
+      <h1 class="hero-title">Discover the Magic<br>of Paris</h1>
+      <p class="hero-subtitle">
+        Experience the charm, romance, and beauty of Paris with unforgettable journeys designed just for you. From iconic landmarks to hidden streets, let us make every moment of your Paris adventure special.
+      </p>
+
+      <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap; justify-content:center;">
+        <a href="#flight-experience" class="cta-btn">
+          <span>Experience The Flight</span>
+          <div class="cta-icon-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </div>
+        </a>
+        <a href="#tours" class="secondary-btn">Explore Tours</a>
+      </div>
+    </div>
+
+    <!-- Bottom Floating Cards -->
+    <div class="banner-bottom-section" id="hero-bottom-cards">
+      <div class="glass-card">
+        <div class="card-icon-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#0d6efd">
+            <path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6.4-4.8-6.4 4.8 2.4-7.2-6-4.8h7.6z"/>
+          </svg>
+        </div>
+        <h3>Discover the Beauty of Paris</h3>
+        <p>Explore iconic landmarks, charming streets, and unforgettable experiences in the City of Light.</p>
+      </div>
+
+      <div class="scroll-indicator">
+        <span>Scroll to Fly</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+
+      <div class="glass-card">
+        <div class="card-icon-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="#0d6efd"></polygon>
+          </svg>
+        </div>
+        <h3>Your Paris Adventure Awaits</h3>
+        <p>From romantic getaways to cultural escapes, discover Paris your way with a journey made for you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SECTION 1: THE FLIGHT (550vh Dedicated Scroll Runway)
+       ========================================================= -->
+  <section id="flight-experience"></section>
+
+  <!-- =========================================================
+       SUBSEQUENT SECTIONS (Slide up smoothly over the 3D Canvas)
+       ========================================================= -->
+  <div class="content-stream">
+
+    <!-- SECTION 2: DESTINATIONS -->
+    <section class="destinations-section" id="destinations">
+      <div class="section-header">
+        <span class="section-badge">Destinations</span>
+        <h2 class="section-title">Iconic Sights, Reimagined</h2>
+        <p class="section-subtitle">
+          From secret rooftop views of the Eiffel Tower to private nocturnal visits of the Louvre, explore Paris like few ever do.
+        </p>
+      </div>
+
+      <div class="destinations-grid">
+        <div class="glass-card dest-card">
+          <div>
+            <div class="dest-tag">CULTURE 01</div>
+            <h3>Louvre by Night</h3>
+            <p>Walk the tranquil marble corridors under golden lighting when the museum empties of crowds.</p>
+          </div>
+          <div style="margin-top:20px; color:#60a5fa; font-size:13px; font-weight:600;">Explore details →</div>
+        </div>
+
+        <div class="glass-card dest-card">
+          <div>
+            <div class="dest-tag">ROYALTY 02</div>
+            <h3>Palace of Versailles</h3>
+            <p>Step inside private royal apartments and fountain gardens with a dedicated historian.</p>
+          </div>
+          <div style="margin-top:20px; color:#60a5fa; font-size:13px; font-weight:600;">Explore details →</div>
+        </div>
+
+        <div class="glass-card dest-card">
+          <div>
+            <div class="dest-tag">ROMANCE 03</div>
+            <h3>Seine Champagne Cruise</h3>
+            <p>Glide beneath historic arched bridges aboard a private wooden Venetian water taxi with vintage French vintages.</p>
+          </div>
+          <div style="margin-top:20px; color:#60a5fa; font-size:13px; font-weight:600;">Explore details →</div>
+        </div>
+
+        <div class="glass-card dest-card">
+          <div>
+            <div class="dest-tag">HERITAGE 04</div>
+            <h3>Montmartre Hidden Bistros</h3>
+            <p>Wind through cobbled streets to bohemian artist studios and secluded garden wine terraces far from crowds.</p>
+          </div>
+          <div style="margin-top:20px; color:#60a5fa; font-size:13px; font-weight:600;">Explore details →</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: PROUDLY TRUSTED -->
+    <section class="trusted-section" id="about">
+      <div class="trusted-content">
+        <h2 class="trusted-title">
+          <span class="serif-italic">Proudly Trusted</span><br>
+          <span class="sans-italic">by Leading Brands</span><br>
+          <span class="sans-italic">Across Industries</span><span class="trademark">®</span>
+        </h2>
+
+        <p class="trusted-subtitle">
+          We've partnered with leading<br>
+          brands to deliver innovative and impactful<br>
+          travel & hospitality solutions
+        </p>
+      </div>
+
+      <div class="trusted-divider"></div>
+
+      <div class="brands-row">
+        <div class="brand-item">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8">
+            <path d="M3 21h18M5 21V7l8-4v18M13 21V9l6 3v9M9 9h.01M9 13h.01M9 17h.01M17 14h.01M17 18h.01"/>
+          </svg>
+          <div class="brand-text-block">
+            <span class="brand-name" style="font-size:12px; letter-spacing:2px;">CONSTRUCTOR</span>
+          </div>
+        </div>
+
+        <div class="brand-item">
+          <svg width="34" height="34" viewBox="0 0 32 32" fill="none">
+            <path d="M16 3L27 9.5V22.5L16 29L5 22.5V9.5L16 3Z" stroke="#ffffff" stroke-width="2"/>
+            <path d="M12 13C12 11.5 13.5 10 16 10C18.5 10 20 11.5 20 13H16M12 19C12 20.5 13.5 22 16 22C18.5 22 20 20.5 20 19H16" stroke="#ffffff" stroke-width="2"/>
+          </svg>
+          <div class="brand-text-block">
+            <span class="brand-name">CONDON</span>
+            <span class="brand-sub">CONSTRUCTION</span>
+          </div>
+        </div>
+
+        <div class="brand-item">
+          <div class="brand-text-block">
+            <div style="display:flex; align-items:center; gap:4px;">
+              <span class="brand-name" style="font-size:16px; font-weight:600; text-transform:none;">Morrison</span>
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="#e53935">
+                <path d="M2 18 C 8 16, 18 10, 18 2 C 10 2, 4 10, 2 18 Z"/>
+              </svg>
+            </div>
+            <span class="brand-name" style="font-size:14px; font-weight:500; text-transform:none;">Construction</span>
+          </div>
+        </div>
+
+        <div class="brand-item">
+          <svg width="38" height="34" viewBox="0 0 40 32" fill="none" stroke="#ffffff" stroke-width="1.8">
+            <path d="M16 6h8v24h-8zM8 12h8v18H8zM24 14h8v16h-8z"/>
+            <path d="M4 28 C 12 22, 28 22, 36 28" stroke-width="1.5"/>
+          </svg>
+        </div>
+
+        <div class="brand-item">
+          <svg width="42" height="34" viewBox="0 0 44 32" fill="none" stroke="#ffffff" stroke-width="1.6">
+            <path d="M4 26 L14 10 L24 26 Z M20 26 L30 10 L40 26 Z"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: OUR TOURS -->
+    <section class="tours-section" id="tours">
+      <div class="section-header">
+        <span class="section-badge">Exclusive Itineraries</span>
+        <h2 class="section-title">Unforgettable Experiences Await</h2>
+        <p class="section-subtitle">
+          Crafted by Parisian insiders for travelers seeking authentic elegance, culinary wonder, and bespoke access.
+        </p>
+      </div>
+
+      <div class="tours-grid">
+        <!-- Tour Card 1 -->
+        <div class="glass-card tour-card">
+          <div class="tour-price-badge">FROM $189 / PERSON</div>
+          <h3>Classic Paris Highlights</h3>
+          <p>The definitive introduction to the monuments, bridges, and gardens that define Parisian elegance, led by an architectural scholar.</p>
+          <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; color:rgba(255,255,255,0.6);">4.5 Hours • Small Group</span>
+            <a href="#contact" class="cta-btn" style="padding:6px 16px; font-size:12px;">Book</a>
+          </div>
+        </div>
+
+        <!-- Center Visual Crest -->
+        <div class="tours-center-visual">
+          <div class="paris-badge">
+            <div class="paris-badge-inner">
+              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2 L9 22 M12 2 L15 22 M8 16 L16 16 M6 22 L18 22 M10 9 L14 9"/>
+              </svg>
+            </div>
+          </div>
+          <h3 style="font-size:22px; margin-bottom:8px;">Paris Voyage Signature</h3>
+          <p style="font-size:13px; color:rgba(255,255,255,0.7); max-width:240px;">
+            Over 10,000 discerning voyagers welcomed since 2018. VIP skip-the-line access guaranteed.
+          </p>
+        </div>
+
+        <!-- Tour Card 2 -->
+        <div class="glass-card tour-card">
+          <div class="tour-price-badge">FROM $249 / PERSON</div>
+          <h3>Romantic Night Escapes</h3>
+          <p>Sunset river taxi cruise followed by private champagne tasting and illuminated panoramic viewpoints across Montmartre.</p>
+          <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; color:rgba(255,255,255,0.6);">3.5 Hours • Private</span>
+            <a href="#contact" class="cta-btn" style="padding:6px 16px; font-size:12px;">Book</a>
+          </div>
+        </div>
+
+        <!-- Tour Card 3 -->
+        <div class="glass-card tour-card">
+          <div class="tour-price-badge">FROM $199 / PERSON</div>
+          <h3>Gourmet & Wine Walks</h3>
+          <p>Indulge in artisanal cheeses, rare vintage wines, and patisseries through the historic Marais and Saint-Germain-des-Prés.</p>
+          <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; color:rgba(255,255,255,0.6);">3 Hours • Gourmet Tasting</span>
+            <a href="#contact" class="cta-btn" style="padding:6px 16px; font-size:12px;">Book</a>
+          </div>
+        </div>
+
+        <!-- Tour Card 4 -->
+        <div class="glass-card tour-card">
+          <div class="tour-price-badge">FROM $289 / PERSON</div>
+          <h3>Royal Versailles Day</h3>
+          <p>Private luxury transfer, personal palace guide, and golf cart exploration of Marie Antoinette's secluded Petit Trianon estate.</p>
+          <div style="margin-top:20px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:13px; color:rgba(255,255,255,0.6);">Full Day • All-Inclusive</span>
+            <a href="#contact" class="cta-btn" style="padding:6px 16px; font-size:12px;">Book</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: WHY CHOOSE US -->
+    <section class="why-section" id="why">
+      <div class="section-header">
+        <span class="section-badge">Why Choose Paris Voyage</span>
+        <h2 class="section-title">Your Comfort. Your Experience. Our Priority.</h2>
+        <p class="section-subtitle">
+          We combine local intimacy with five-star luxury travel standards, guaranteeing moments you will cherish for a lifetime.
+        </p>
+      </div>
+
+      <div class="why-grid">
+        <div class="glass-card why-card">
+          <div class="card-icon-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3>Expert Local Guides</h3>
+          <p>Passionate Parisian locals and credentialed historians who share fascinating secrets that ordinary tour groups never discover.</p>
+        </div>
+
+        <div class="glass-card why-card">
+          <div class="card-icon-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <h3>Curated Experiences</h3>
+          <p>Every itinerary is hand-crafted and refined through thousands of visits to deliver effortless luxury and lasting joy.</p>
+        </div>
+
+        <div class="glass-card why-card">
+          <div class="card-icon-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <h3>Flexible Booking</h3>
+          <p>Plans change, and we understand. Enjoy free cancellation up to 48 hours prior to your tour departure.</p>
+        </div>
+
+        <div class="glass-card why-card">
+          <div class="card-icon-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+              <line x1="9" y1="9" x2="9.01" y2="9"></line>
+              <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+          </div>
+          <h3>Seamless Journey</h3>
+          <p>From private airport greetings to Mercedes-Benz transfers, we handle every logistical nuance so you can savor every breath.</p>
+        </div>
+
+        <div class="glass-card why-card">
+          <div class="card-icon-badge">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <h3>24/7 Dedicated Concierge</h3>
+          <p>Direct WhatsApp & telephone access to your personal concierge for last-minute Michelin dining reservations or private opera tickets.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: CONTACT & BOOKING -->
+    <section class="contact-section" id="contact">
+      <div class="contact-container">
+        <div>
+          <span class="section-badge">Direct Reservations</span>
+          <h2 style="font-size:38px; line-height:1.2; margin-bottom:18px;">Ready to Experience Paris?</h2>
+          <p style="font-size:15px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:24px;">
+            Let our bespoke travel directors design your dream voyage. Share your preferred dates and desires, and we will present a tailored itinerary within 24 hours.
+          </p>
+
+          <div style="display:flex; flex-direction:column; gap:14px; font-size:14px; color:rgba(255,255,255,0.75);">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>12 Place Vendôme, 75001 Paris, France</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <span>concierge@parisvoyage.com</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>+33 (0)1 42 68 55 00</span>
+            </div>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contact-form">
+          <div class="form-group">
+            <label for="form-name">Your Full Name</label>
+            <input type="text" id="form-name" class="form-control" placeholder="e.g. Eleanor Vance" required>
+          </div>
+
+          <div class="form-group">
+            <label for="form-email">Email Address</label>
+            <input type="email" id="form-email" class="form-control" placeholder="eleanor@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="form-tour">Selected Experience</label>
+            <select id="form-tour" class="form-control" style="background:#0f172a;">
+              <option value="classic">Classic Paris Highlights</option>
+              <option value="romantic">Romantic Night Escapes</option>
+              <option value="gourmet">Gourmet & Wine Walks</option>
+              <option value="versailles">Royal Versailles Day</option>
+              <option value="bespoke">Bespoke Custom Journey</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="form-message">Special Wishes & Travel Dates</label>
+            <textarea id="form-message" class="form-control" placeholder="Tell us about your trip dates, group size, and any special requests..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit-btn">Request Bespoke Itinerary</button>
+          <div class="form-status" id="form-status">✓ Thank you! Your inquiry has been sent to our Parisian concierge.</div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>© 2026 Paris Voyage Luxury Experiences SAS. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#flight-experience">The Flight</a>
+        <a href="#destinations">Destinations</a>
+        <a href="#tours">Tours</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </footer>
+
+  </div> <!-- End content-stream -->
+
+  <!-- =========================================================
+       SMOOTH SCROLLING (LENIS) & 3D FRAME SCRUBBING ENGINE
+       ========================================================= -->
+  <script src="lenis.min.js"></script>
+  <script>
+    (function () {
+      // 1. TOP-LEVEL STATE DECLARATIONS
+      const TOTAL_FRAMES = 300;
+      const FRAME_PREFIX = 'ezgif-8a25bee1fd687279-jpg/ezgif-frame-';
+      const FRAME_EXT = '.jpg';
+
+      const frameImages = new Array(TOTAL_FRAMES);
+      let loadedCount = 0;
+      let isReady = false;
+      let currentDrawnIndex = -1;
+      let targetProgress = 0;
+      let smoothProgress = 0;
+
+      const preloader = document.getElementById('preloader');
+      const preloaderFill = document.getElementById('preloader-fill');
+      const preloaderPercent = document.getElementById('preloader-percent');
+
+      const canvas = document.getElementById('cinematic-canvas');
+      const ctx = canvas.getContext('2d', { alpha: false });
+
+      const flightSection = document.getElementById('flight-experience');
+      const flightHud = document.getElementById('flight-hud');
+      const hudFrame = document.getElementById('hud-frame');
+      const hudFill = document.getElementById('hud-fill');
+      const heroCenter = document.getElementById('hero-center');
+      const heroBottom = document.getElementById('hero-bottom-cards');
+
+      const captions = [
+        { el: document.getElementById('cap-1'), start: 0.02, end: 0.22 },
+        { el: document.getElementById('cap-2'), start: 0.26, end: 0.48 },
+        { el: document.getElementById('cap-3'), start: 0.52, end: 0.74 },
+        { el: document.getElementById('cap-4'), start: 0.78, end: 0.98 }
+      ];
+
+      function getFramePath(index) {
+        const num = String(index + 1).padStart(3, '0');
+        return `${FRAME_PREFIX}${num}${FRAME_EXT}`;
+      }
+
+      // 2. MASTER 3-PHASE CINEMATIC FRAME RENDERING
+      // Frame 1-44: Luxury Airplane Cabin Suite looking out the window
+      // Frame 45-200: 100vw × 100vh Full-Bleed Cloud Ocean Horizon
+      // Frame 201-300: 100vw × 100vh Full-Bleed Eiffel Tower Finale
+      function drawCinematicFrame(img, frameIdx) {
+        if (!img || !img.complete || img.naturalWidth === 0) return;
+
+        const cw = canvas.width;
+        const ch = canvas.height;
+        const iw = img.naturalWidth || 1080;
+        const ih = img.naturalHeight || 1920;
+
+        ctx.fillStyle = '#03080e';
+        ctx.fillRect(0, 0, cw, ch);
+
+        const isLandscape = cw > ch;
+
+        if (!isLandscape) {
+          // Mobile Portrait viewports: Pure native cover
+          const scale = Math.max(cw / iw, ch / ih);
+          const dw = iw * scale, dh = ih * scale;
+          ctx.drawImage(img, (cw - dw) * 0.5, (ch - dh) * 0.5, dw, dh);
+          return;
+        }
+
+        // DESKTOP WIDESCREEN VIEWPORTS
+        const fullCoverScale = Math.max(cw / iw, ch / ih);
+
+        if (frameIdx >= 45) {
+          // 100% FULL-BLEED IMMERSIVE COVER FOR SKY & EIFFEL TOWER!
+          // No sidebars, no pillars, no blur boxes - covers 100vw × 100vh edge-to-edge
+          const scale = fullCoverScale;
+          const dw = iw * scale;
+          const dh = ih * scale;
+          const dx = (cw - dw) * 0.5;
+
+          // Focal Y Tracking:
+          // Sky frames (45-200): Horizon centered (0.50)
+          // Tower frames (201-300): Smoothly shifts focal point up to 0.34 to preserve glowing beacon
+          let focalY = 0.50;
+          if (frameIdx > 200) {
+            const towerProgress = Math.min(1, (frameIdx - 200) / 100);
+            focalY = 0.50 - (towerProgress * 0.16); // shifts smoothly from 0.50 to 0.34
+          }
+
+          const dy = (ch * 0.5) - (ih * focalY * scale);
+
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, dx, dy, dw, dh);
+
+          // Subtle cinematic lens vignette
+          const vign = ctx.createRadialGradient(cw * 0.5, ch * 0.5, ch * 0.38, cw * 0.5, ch * 0.5, cw * 0.85);
+          vign.addColorStop(0, 'rgba(3, 8, 14, 0)');
+          vign.addColorStop(1, 'rgba(3, 8, 14, 0.35)');
+          ctx.fillStyle = vign;
+          ctx.fillRect(0, 0, cw, ch);
+        } else {
+          // Frames 0 to 44: Luxury Cabin Interior Transition
+          // 1. Ambient twilight sky glow on outer edges
+          ctx.save();
+          ctx.filter = 'blur(60px) brightness(0.6)';
+          const bgScale = fullCoverScale * 1.05;
+          ctx.drawImage(img, (cw - iw * bgScale) * 0.5, (ch - ih * bgScale) * 0.5, iw * bgScale, ih * bgScale);
+          ctx.restore();
+
+          // 2. Realistic airplane cabin suite wall on left and right
+          const cabinWall = ctx.createLinearGradient(0, 0, cw, 0);
+          cabinWall.addColorStop(0.00, '#03080e');
+          cabinWall.addColorStop(0.24, '#060d18');
+          cabinWall.addColorStop(0.38, 'rgba(6, 13, 24, 0.4)');
+          cabinWall.addColorStop(0.50, 'rgba(6, 13, 24, 0.0)');
+          cabinWall.addColorStop(0.62, 'rgba(6, 13, 24, 0.4)');
+          cabinWall.addColorStop(0.76, '#060d18');
+          cabinWall.addColorStop(1.00, '#03080e');
+          ctx.fillStyle = cabinWall;
+          ctx.fillRect(0, 0, cw, ch);
+
+          // 3. Cabin window: zooms dynamically forward as frame index advances toward 45
+          const fitScale = (ch * 0.98) / ih;
+          const zoomProgress = frameIdx / 44; // 0 to 1
+          const easeZoom = zoomProgress * zoomProgress;
+          const currentScale = fitScale + (fullCoverScale - fitScale) * easeZoom;
+
+          const dw = iw * currentScale;
+          const dh = ih * currentScale;
+          const dx = (cw - dw) * 0.5;
+          const dy = (ch - dh) * 0.5;
+
+          ctx.save();
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+          ctx.shadowBlur = 35;
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, dx, dy, dw, dh);
+          ctx.restore();
+        }
+      }
+
+      function resizeCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const w = Math.round(window.innerWidth * dpr);
+        const h = Math.round(window.innerHeight * dpr);
+
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w;
+          canvas.height = h;
+        }
+
+        const imgToDraw = currentDrawnIndex >= 0 ? getLoadedFrame(currentDrawnIndex) : frameImages[0];
+        if (imgToDraw) {
+          drawCinematicFrame(imgToDraw, currentDrawnIndex >= 0 ? currentDrawnIndex : 0);
+        }
+      }
+      window.addEventListener('resize', resizeCanvas, { passive: true });
+
+      // Closest available frame lookup (prevents blank/flicker)
+      function getLoadedFrame(idx) {
+        if (frameImages[idx] && frameImages[idx].complete && frameImages[idx].naturalWidth > 0) {
+          return frameImages[idx];
+        }
+        for (let d = 1; d < TOTAL_FRAMES; d++) {
+          const prev = idx - d;
+          if (prev >= 0 && frameImages[prev] && frameImages[prev].complete && frameImages[prev].naturalWidth > 0) {
+            return frameImages[prev];
+          }
+          const next = idx + d;
+          if (next < TOTAL_FRAMES && frameImages[next] && frameImages[next].complete && frameImages[next].naturalWidth > 0) {
+            return frameImages[next];
+          }
+        }
+        return frameImages[0];
+      }
+
+      // 3. FAST PRELOADING OF ALL 300 FRAMES
+      function dismissPreloader() {
+        if (isReady) return;
+        isReady = true;
+        if (frameImages[0]) {
+          drawCinematicFrame(frameImages[0], 0);
+        }
+        if (preloader) {
+          preloader.classList.add('loaded');
+        }
+      }
+
+      function onFrameLoaded() {
+        loadedCount++;
+        const pct = Math.min(100, Math.floor((loadedCount / TOTAL_FRAMES) * 100));
+        if (preloaderFill) preloaderFill.style.width = pct + '%';
+        if (preloaderPercent) preloaderPercent.innerText = pct + '%';
+
+        // Render Frame 1 immediately
+        if (loadedCount === 1 || (frameImages[0] && frameImages[0].complete)) {
+          if (currentDrawnIndex < 0) {
+            drawCinematicFrame(frameImages[0], 0);
+          }
+        }
+
+        // Dismiss as soon as initial 30 frames are ready or all loaded
+        if (!isReady && (loadedCount >= TOTAL_FRAMES || loadedCount >= 30)) {
+          dismissPreloader();
+        }
+      }
+
+      function preloadAllFrames() {
+        // Safe auto-dismiss timeout (1.5s)
+        setTimeout(() => {
+          dismissPreloader();
+        }, 1500);
+
+        // Immediate priority for Frame 1
+        const f0 = new Image();
+        f0.onload = () => {
+          frameImages[0] = f0;
+          onFrameLoaded();
+          drawCinematicFrame(f0, 0);
+        };
+        f0.onerror = () => onFrameLoaded();
+        f0.src = getFramePath(0);
+
+        // Queue remaining 299 frames with 8 worker threads
+        let nextIndexToLoad = 1;
+        const CONCURRENT_WORKERS = 8;
+
+        function spawnWorker() {
+          if (nextIndexToLoad >= TOTAL_FRAMES) return;
+          const idx = nextIndexToLoad++;
+          const img = new Image();
+          img.onload = () => {
+            frameImages[idx] = img;
+            onFrameLoaded();
+            spawnWorker();
+          };
+          img.onerror = () => {
+            onFrameLoaded();
+            spawnWorker();
+          };
+          img.src = getFramePath(idx);
+        }
+
+        for (let w = 0; w < CONCURRENT_WORKERS; w++) {
+          spawnWorker();
+        }
+      }
+
+      // Initialize canvas size and preloader
+      resizeCanvas();
+      preloadAllFrames();
+
+      // 4. LENIS SMOOTH MOMENTUM SCROLL
+      let lenis = null;
+      if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+          duration: 1.25,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          direction: 'vertical',
+          gestureDirection: 'vertical',
+          smooth: true,
+          smoothTouch: false,
+          touchMultiplier: 1.5,
+          infinite: false,
+        });
+      }
+
+      // 5. FLIGHT SCROLL PROGRESS CONTROLLER
+      function updateFlightScroll() {
+        const scrollY = window.scrollY;
+        const flightTop = flightSection.offsetTop;
+        const flightHeight = flightSection.offsetHeight;
+        const viewH = window.innerHeight;
+
+        // Total scroll runway starts at top of flightSection and spans flightHeight
+        const totalTravel = flightHeight;
+
+        if (scrollY < flightTop) {
+          // Inside Hero: target progress is 0, frame 001
+          targetProgress = 0;
+          if (flightHud) flightHud.classList.remove('active');
+
+          // Smooth Hero fade-out as user scrolls past 300px
+          const heroOpacity = Math.max(0, 1 - (scrollY / (viewH * 0.75)));
+          if (heroCenter) {
+            heroCenter.style.opacity = heroOpacity;
+            heroCenter.style.transform = `translateY(${-scrollY * 0.25}px)`;
+          }
+          if (heroBottom) {
+            heroBottom.style.opacity = heroOpacity;
+          }
+        } else if (scrollY >= flightTop && scrollY <= flightTop + totalTravel) {
+          // Inside Flight Runway: Scrub smoothly across frames 0 to 299
+          targetProgress = Math.min(1, Math.max(0, (scrollY - flightTop) / totalTravel));
+          if (flightHud) flightHud.classList.add('active');
+
+          if (heroCenter) heroCenter.style.opacity = 0;
+          if (heroBottom) heroBottom.style.opacity = 0;
+        } else {
+          // Past Flight Runway (into Destinations & below): Frame 300 (Eiffel Tower)
+          targetProgress = 1;
+          if (flightHud) flightHud.classList.remove('active');
+        }
+      }
+
+      if (lenis) {
+        lenis.on('scroll', () => {
+          updateFlightScroll();
+          updateActiveNav();
+        });
+      }
+
+      window.addEventListener('scroll', () => {
+        updateFlightScroll();
+        updateActiveNav();
+      }, { passive: true });
+
+      // 6. RENDER LOOP (Dual Lerp for silky 60/120fps motion)
+      function renderLoop(time) {
+        if (lenis) {
+          lenis.raf(time);
+        }
+
+        const diff = targetProgress - smoothProgress;
+        if (Math.abs(diff) > 0.0001) {
+          smoothProgress += diff * 0.12;
+        } else {
+          smoothProgress = targetProgress;
+        }
+
+        // Map smoothly across all 300 frames (0 to 299)
+        const frameIndex = Math.min(
+          TOTAL_FRAMES - 1,
+          Math.max(0, Math.round(smoothProgress * (TOTAL_FRAMES - 1)))
+        );
+
+        if (frameIndex !== currentDrawnIndex) {
+          const imgToDraw = getLoadedFrame(frameIndex);
+          if (imgToDraw) {
+            drawCinematicFrame(imgToDraw, frameIndex);
+          }
+          currentDrawnIndex = frameIndex;
+
+          // Update HUD
+          if (hudFrame) {
+            hudFrame.innerText = 'FRAME ' + String(frameIndex + 1).padStart(3, '0');
+          }
+          if (hudFill) {
+            hudFill.style.width = (smoothProgress * 100) + '%';
+          }
+
+          // Update Floating Captions (Only active while inside flight zone)
+          const inFlight = targetProgress > 0 && targetProgress < 1;
+          captions.forEach(cap => {
+            if (inFlight && smoothProgress >= cap.start && smoothProgress <= cap.end) {
+              cap.el.classList.add('active');
+            } else {
+              cap.el.classList.remove('active');
+            }
+          });
+        }
+
+        requestAnimationFrame(renderLoop);
+      }
+      requestAnimationFrame(renderLoop);
+
+      // 7. SMOOTH ANCHOR NAVIGATION WITH LENIS
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const targetId = this.getAttribute('href');
+          if (!targetId || targetId === '#') return;
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            if (lenis) {
+              lenis.scrollTo(targetEl, { offset: 0, duration: 1.35 });
+            } else {
+              targetEl.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            const navPill = document.getElementById('nav-pill');
+            if (navPill) navPill.classList.remove('mobile-open');
+          }
+        });
+      });
+
+      // 8. ACTIVE NAV LINK TRACKING & HEADER GLASS STATE
+      const navSections = [
+        { id: '#home', el: document.getElementById('home') },
+        { id: '#flight-experience', el: document.getElementById('flight-experience') },
+        { id: '#destinations', el: document.getElementById('destinations') },
+        { id: '#about', el: document.getElementById('about') },
+        { id: '#tours', el: document.getElementById('tours') },
+        { id: '#why', el: document.getElementById('why') },
+        { id: '#contact', el: document.getElementById('contact') }
+      ];
+
+      const headerEl = document.querySelector('header');
+
+      function updateActiveNav() {
+        const scrollY = window.scrollY;
+
+        // Toggle glass bar on header
+        if (headerEl) {
+          if (scrollY > 40) {
+            headerEl.classList.add('scrolled');
+          } else {
+            headerEl.classList.remove('scrolled');
+          }
+        }
+
+        // Determine active section accurately via getBoundingClientRect
+        let currentId = '#home';
+        const flightTop = flightSection.offsetTop;
+        const flightBottom = flightTop + flightSection.offsetHeight;
+
+        if (scrollY < flightTop * 0.6) {
+          currentId = '#home';
+        } else if (scrollY >= flightTop * 0.6 && scrollY < flightBottom - 200) {
+          currentId = '#flight-experience';
+        } else {
+          for (let i = 2; i < navSections.length; i++) {
+            const sec = navSections[i];
+            if (sec.el) {
+              const rect = sec.el.getBoundingClientRect();
+              if (rect.top <= window.innerHeight * 0.45 && rect.bottom >= window.innerHeight * 0.2) {
+                currentId = sec.id;
+              }
+            }
+          }
+        }
+
+        document.querySelectorAll('.nav-pill a').forEach(a => {
+          if (a.getAttribute('href') === currentId) {
+            a.classList.add('active');
+          } else {
+            a.classList.remove('active');
+          }
+        });
+      }
+
+      // 9. MOBILE MENU TOGGLE
+      const menuBtn = document.getElementById('menu-btn');
+      const navPill = document.getElementById('nav-pill');
+      if (menuBtn && navPill) {
+        menuBtn.addEventListener('click', () => {
+          navPill.classList.toggle('mobile-open');
+        });
+      }
+
+      // 10. CONTACT FORM SUBMISSION
+      const contactForm = document.getElementById('contact-form');
+      const formStatus = document.getElementById('form-status');
+      if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          if (formStatus) {
+            formStatus.style.display = 'block';
+            setTimeout(() => {
+              formStatus.style.display = 'none';
+            }, 6000);
+          }
+          contactForm.reset();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
